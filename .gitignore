@@ -1,0 +1,6 @@
+# Classes
+target
+
+# IntelliJ
+*.iml
+.idea
