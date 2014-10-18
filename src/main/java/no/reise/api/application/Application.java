@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @EnableAutoConfiguration
-@ComponentScan({"no.reise.api.controllers"})
+@ComponentScan({"no.reise.api.*"})
 public class Application {
 
     public static void main(String[] args) {
