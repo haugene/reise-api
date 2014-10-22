@@ -3,8 +3,9 @@ package no.reise.api.repository;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.jaxrs.json.JacksonJaxbJsonProvider;
 import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
+import no.reise.api.domain.Departure;
 import no.reise.api.domain.Stop;
-import no.reise.api.domain.StopVisit;
+import no.reise.api.domain.dto.StopVisit;
 import no.reise.api.geolocation.ConverterService;
 import no.reise.api.geolocation.GeographicPoint;
 import org.glassfish.jersey.client.ClientConfig;
@@ -15,6 +16,7 @@ import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -61,12 +63,19 @@ public class RuterApi
                 .get(new GenericType<List<Stop>>() {});
     }
 
-    public List<StopVisit> getNextDepartures(Long stopId)
+    public List<Departure> getNextDepartures(Long stopId)
     {
-        return client.target(ruter_api_url)
+        List<StopVisit> stopVisits = client.target(ruter_api_url)
                 .path(next_departures_path)
                 .path(stopId.toString())
                 .request(MediaType.APPLICATION_JSON_TYPE)
                 .get(new GenericType<List<StopVisit>>() {});
+
+        List<Departure> departures = new ArrayList<Departure>();
+        for(StopVisit stopVisit : stopVisits)
+        {
+            departures.add(new Departure(stopVisit));
+        }
+        return departures;
     }
 }

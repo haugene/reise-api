@@ -1,4 +1,4 @@
-package no.reise.api.domain;
+package no.reise.api.domain.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

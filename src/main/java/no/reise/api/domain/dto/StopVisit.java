@@ -1,6 +1,7 @@
-package no.reise.api.domain;
+package no.reise.api.domain.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import no.reise.api.domain.dto.MonitoredVehicleJourney;
 import org.joda.time.DateTime;
 
 public class StopVisit

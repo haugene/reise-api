@@ -1,8 +1,8 @@
 package no.reise.api.repository;
 
 import no.reise.api.application.Application;
+import no.reise.api.domain.Departure;
 import no.reise.api.domain.Stop;
-import no.reise.api.domain.StopVisit;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,16 +48,10 @@ public class RuterApiTest
     public void nextDeparturesFromStop()
     {
         // When requesting upcoming departures for a given stop
-        List<StopVisit> nextDepartures = ruterApi.getNextDepartures(3010040L);
+        List<Departure> nextDepartures = ruterApi.getNextDepartures(3010040L);
 
         // We should receive a list of StopVisits
         assertTrue(!nextDepartures.isEmpty());
-
-        // And the response should make sense
-        StopVisit visit = nextDepartures.get(0);
-        assertTrue(visit.getRecordedAtTime().isBefore(visit.getRecordedAtTime().plusMinutes(5)));
-        assertTrue(visit.getRecordedAtTime().isAfter(visit.getRecordedAtTime().minusMinutes(5)));
-        assertTrue(visit.getMonitoredVehicleJourney().getMonitoredCall().getExpectedDepartureTime().isAfterNow());
     }
 
     private Stop getStopById(List<Stop> list, long id) {

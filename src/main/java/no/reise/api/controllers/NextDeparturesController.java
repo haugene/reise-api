@@ -1,6 +1,7 @@
 package no.reise.api.controllers;
 
-import no.reise.api.domain.StopVisit;
+import no.reise.api.domain.Departure;
+import no.reise.api.domain.dto.StopVisit;
 import no.reise.api.repository.RuterApi;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,7 +19,7 @@ public class NextDeparturesController
     private RuterApi ruterApi;
     
     @RequestMapping("/{stopId}")
-    public List<StopVisit> departures(@PathVariable("stopId") Long id)
+    public List<Departure> departures(@PathVariable("stopId") Long id)
     {
         return ruterApi.getNextDepartures(id);
     }
