@@ -1,11 +1,10 @@
 package no.reise.api.repository;
 
-import com.fasterxml.jackson.databind.DeserializationConfig;
 import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.jaxrs.json.JacksonJaxbJsonProvider;
 import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
 import no.reise.api.domain.Stop;
+import no.reise.api.domain.StopVisit;
 import no.reise.api.geolocation.ConverterService;
 import no.reise.api.geolocation.GeographicPoint;
 import org.glassfish.jersey.client.ClientConfig;
@@ -24,6 +23,7 @@ public class RuterApi
     private static final String ruter_api_url = "http://reisapi.ruter.no";
     private static final String heartbeat_path = "heartbeat/index";
     private static final String closest_stops_path = "place/getcloseststops";
+    private static final String next_departures_path = "stopvisit/getdepartures";
 
     @Autowired
     private ConverterService converterService;
@@ -59,5 +59,14 @@ public class RuterApi
                 .queryParam("coordinates", "X=" + xCoord + ",Y=" + yCoord)
                 .request(MediaType.APPLICATION_JSON_TYPE)
                 .get(new GenericType<List<Stop>>() {});
+    }
+
+    public List<StopVisit> getNextDepartures(Long stopId)
+    {
+        return client.target(ruter_api_url)
+                .path(next_departures_path)
+                .path(stopId.toString())
+                .request(MediaType.APPLICATION_JSON_TYPE)
+                .get(new GenericType<List<StopVisit>>() {});
     }
 }

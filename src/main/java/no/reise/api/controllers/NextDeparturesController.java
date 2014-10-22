@@ -1,26 +1,26 @@
 package no.reise.api.controllers;
 
-import no.reise.api.domain.Stop;
+import no.reise.api.domain.StopVisit;
 import no.reise.api.repository.RuterApi;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.ws.rs.QueryParam;
 import java.util.List;
 
 @RestController
-@RequestMapping("/stops")
-public class StopsController
+@RequestMapping("/departures")
+public class NextDeparturesController
 {
 
     @Autowired
     private RuterApi ruterApi;
-
-    @RequestMapping("/nearme")
-    public List<Stop> stopsNearMe(@QueryParam(value = "lat") Double lat, @QueryParam(value = "lon") Double lon)
+    
+    @RequestMapping("/{stopId}")
+    public List<StopVisit> departures(@PathVariable("stopId") Long id)
     {
-        return ruterApi.getClosestStops(lat, lon);
+        return ruterApi.getNextDepartures(id);
     }
     
 }

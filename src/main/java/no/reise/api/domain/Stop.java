@@ -2,35 +2,35 @@ package no.reise.api.domain;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-/**
- * Created by kristian on 18.10.14.
- */
 public class Stop
 {
+    @JsonProperty(value = "ID")
     private Long id;
+
+    @JsonProperty(value = "Name")
     private String name;
+
+    @JsonProperty(value = "District")
     private String district;
+
+    @JsonProperty(value = "PlaceType")
     private String placeType;
 
-    @JsonProperty(value = "ID")
     public Long getId()
     {
         return id;
     }
 
-    @JsonProperty(value = "Name")
     public String getName()
     {
         return name;
     }
 
-    @JsonProperty(value = "District")
     public String getDistrict()
     {
         return district;
     }
 
-    @JsonProperty(value = "PlaceType")
     public String getPlaceType()
     {
         return placeType;
